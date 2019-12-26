@@ -1,0 +1,10 @@
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+# 关于circleci的设置：https://www.testcontainers.org/supported_docker_environment/continuous_integration/circle_ci/
+version: 2
+executorType: machine
+jobs:
+  build:
+    steps:
+      - checkout
+
+      - run: mvn -B clean install
