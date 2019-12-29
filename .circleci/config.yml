@@ -13,7 +13,7 @@ jobs:
           name: Install prerequists
           command: |
             sudo apt-get update
-            sudo apt-get install --allow openjdk-11-jdk maven
+            sudo apt-get install -y openjdk-11-jdk maven
       - run:
           name: Maven install
           command: |
