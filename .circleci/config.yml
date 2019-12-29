@@ -5,7 +5,7 @@ executorType: machine
 jobs:
   build:
     machine:
-      image: ubuntu-1604:201904-01    # pins image to specific version
+      image: ubuntu-1604:201903-01    # pins image to specific version
     steps:
       - checkout
 
