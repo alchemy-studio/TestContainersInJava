@@ -13,16 +13,9 @@ jobs:
           name: Install prerequists
           command: |
             sudo apt-get update
-            sudo apt-get install -y openjdk-11-jdk maven
-            sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk-11.0.5/bin/java 1
-            sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/jdk-11.0.5/bin/javac 1
-            echo 'export JAVA_HOME=/usr/local/openjdk-11.0.2_linux-x64_bin/jdk-11.0.2
-                  export JRE_HOME=$JAVA_HOME/jre
-                  export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
-                  export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH' > ~/.profile
+            sudo apt-get install --allow openjdk-11-jdk maven
       - run:
           name: Maven install
           command: |
-            . ~/.profile
             java -version
             mvn -B clean install
