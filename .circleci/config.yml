@@ -12,9 +12,9 @@ jobs:
       - run:
           name: Install prerequists
           command: |
+            sudo update-binfmts --package openjdk-8 --remove jar /usr/bin/jexec
             sudo apt-get update
             sudo apt-get install -y openjdk-11-jdk maven
-            sudo update-binfmts --package openjdk-8 --remove jar /usr/bin/jexec
             sudo update-binfmts --package openjdk-11 --install jar /usr/bin/jexec --magic PK\x03\x04
       - run:
           name: Maven install
