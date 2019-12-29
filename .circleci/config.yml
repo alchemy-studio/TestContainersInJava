@@ -24,4 +24,5 @@ jobs:
           name: Maven install
           command: |
             . ~/.profile
+            java -version
             mvn -B clean install
