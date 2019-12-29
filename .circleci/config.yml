@@ -5,7 +5,7 @@ executorType: machine
 jobs:
   build:
     machine:
-      image: ubuntu-1804:201904-01    # pins image to specific version
+      image: ubuntu-1604:201904-01    # pins image to specific version
     steps:
       - checkout
 
@@ -13,5 +13,5 @@ jobs:
           name: Install prerequists
           command: |
             sudo apt-get update
-            sudo apt-get install -y maven
+            sudo apt-get install -y openjdk-11-jdk maven
       - run: mvn -B clean install
