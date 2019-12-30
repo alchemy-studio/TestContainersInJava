@@ -23,6 +23,6 @@ jobs:
       - run:
           name: Maven install
           command: |
-            which java
+            sudo update-binfmts --package openjdk-11 --install jar /usr/bin/jexec --magic PK\x03\x04
             java -version
             mvn -B clean install
