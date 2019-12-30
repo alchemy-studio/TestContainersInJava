@@ -2,27 +2,36 @@
 # 关于circleci的设置：https://www.testcontainers.org/supported_docker_environment/continuous_integration/circle_ci/
 version: 2
 executorType: machine
+commands:
+  install_java_11:
+    description: "Install openjdk 11 from ppa"
+    steps:
+      - run: mkdir /tmp/archives
+      - restore_cache:
+          keys:
+            - apt-v2
+      - run: sudo rsync -av /tmp/archives/ /var/cache/apt/archives/
+      - run: sudo sed -i 's/archive.ubuntu.com/us.archive.ubuntu.com/g' /etc/apt/sources.list
+      - run:
+          name: Install java 11
+          command: |
+            sudo add-apt-repository ppa:openjdk-r/ppa
+            sudo apt update -q
+            sudo apt install -qy openjdk-11-jdk
+      - run: rsync -av /var/cache/apt/archives/*.deb /tmp/archives/
+      - save_cache:
+          key: apt-v2
+          paths:
+            - /tmp/archives
 jobs:
   build:
     machine:
       image: ubuntu-1604:201903-01    # pins image to specific version
     steps:
+      - install_java_11
       - checkout
-
-      - run:
-          name: Clean old java
-          command: |
-            sudo update-binfmts --package openjdk-8 --remove jar /usr/bin/jexec
-
-      - run:
-          name: Install prerequists
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y openjdk-11-jdk maven
-
       - run:
           name: Maven install
           command: |
-            sudo update-binfmts --package openjdk-11 --install jar /usr/bin/jexec --magic PK\x03\x04
             java -version
             mvn -B clean install
