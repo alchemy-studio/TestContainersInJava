@@ -10,6 +10,11 @@ jobs:
       - checkout
 
       - run:
+          name: Clean old java
+          command: |
+            sudo update-binfmts --package openjdk-8 --remove jar /usr/bin/jexec
+
+      - run:
           name: Install prerequists
           command: |
             sudo apt-get update
@@ -18,10 +23,9 @@ jobs:
       - run:
           name: Maven install
           command: |
-
-            sudo update-binfmts --package openjdk-8 --remove jar /usr/bin/jexec
-            sudo update-binfmts --package openjdk-11 --install jar /usr/bin/jexec --magic PK\x03\x04
-            sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk-11.0.5/bin/java 1
-            sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/jdk-11.0.5/bin/javac 1
+            which java
+#            sudo update-binfmts --package openjdk-11 --install jar /usr/bin/jexec --magic PK\x03\x04
+#            sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk-11.0.5/bin/java 1
+#            sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/jdk-11.0.5/bin/javac 1
             java -version
             mvn -B clean install
